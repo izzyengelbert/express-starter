@@ -19,9 +19,9 @@ const db = database.connect(config.db);
 
 app.use(cors);
 
-const createModels = () => {
-  User.init(db);
-};
+const createModels = () => ({
+  User: User.init(db);
+});
 
 const createServices = (models) => ({
   userService: new UserService(models),
@@ -51,10 +51,8 @@ const registerDependencies = () => {
 
 registerDependencies();
 
-app.user(bodyParser.json());
+app.use(bodyParser.json());
 initializeController();
-
-app.locals.models = createModels();
 
 initializeAssociation(app.locals.models);
 
