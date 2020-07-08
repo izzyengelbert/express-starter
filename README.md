@@ -1,2 +1,2 @@
 # express-starter
-a boilerplate for express project using sequelize and postgres
+a project template for express project using sequelize and postgres
