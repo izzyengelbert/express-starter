@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import config from '../../../config/index';
-import hashPassword from '../../../utils/hashPassword';
+import { comparePassword } from '../../../utils/password';
 import IncorrectCredentials from '../../errors/user/IncorrectCredentials';
 
 export default class AuthService {
@@ -9,17 +9,28 @@ export default class AuthService {
   }
 
   async authenticateUser(username, password) {
-    const hashedPassword = hashPassword(password);
-    const user = await this._User.findUserByCredentials(username, hashedPassword);
-    if (user) {
+    let user = await this._User.findUserByCredentials(username);
+    const validPassword = await comparePassword(password, user.password);
+    if (user && validPassword) {
+      user = this._removeUserPassword(user);
       const payload = { user };
       const response = {
-        token: jwt.sign(payload, config.secret, { expiresIn: '1h' }),
-        userId: user.id,
-        username: user.username
+        token: jwt.sign(payload, config.secret, { algorithm: 'HS256', expiresIn: '1h' })
       };
       return response;
     }
     throw new IncorrectCredentials();
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  _removeUserPassword(user) {
+    return {
+      id: user.id,
+      username: user.username,
+      lastLogin: user.lastLogin,
+      lastModule: user.lastModule,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt
+    };
   }
 }

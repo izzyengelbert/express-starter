@@ -1,25 +1,10 @@
 import dotenv from 'dotenv';
+import dbConfig from './dbConfig';
 
 dotenv.config();
 
-const getDbName = () => {
-  if (process.env.ENV === 'production') {
-    return process.env.DB_NAME_PROD || '';
-  }
-  if (process.env.ENV === 'development') {
-    return process.env.DB_NAME_DEV || '';
-  }
-  return process.env.DB_NAME_DEV || '';
-};
-
 export default {
   port: process.env.PORT || 3000,
-  db: {
-    name: getDbName() || '',
-    username: process.env.DB_USER || '',
-    password: process.env.DB_PASSWORD || '',
-    host: process.env.HOST || '127.0.0.1',
-    dialect: process.env.DB_DIALECT || 'postgres'
-  },
+  db: { ...dbConfig },
   secret: process.env.SECRET_KEY || ''
 };

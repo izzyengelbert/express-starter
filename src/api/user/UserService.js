@@ -6,7 +6,7 @@ export default class UserService {
   }
 
   getAllUsers() {
-    return this._User.findAll();
+    return this._User.findAll({ attributes: { exclude: ['password'] } });
   }
 
   getUserById(id) {
@@ -15,6 +15,17 @@ export default class UserService {
 
   getUserByUsername(username) {
     return this._findUserByUsername(username);
+  }
+
+  async createUser(payload) {
+    const user = new this._User(payload);
+    const {
+      username, createdAt, lastModule, lastLogin
+    } = await user.save();
+
+    return {
+      username, createdAt, lastModule, lastLogin
+    };
   }
 
   async _findUserByUsername(username) {
