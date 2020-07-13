@@ -10,12 +10,10 @@ import errorMiddleware from './middlewares/errorMiddleware';
 
 import AuthController from './api/auth/AuthController';
 import UserController from './api/user/UserController';
-import ProductController from './api/product/ProductController';
 import CategoryController from './api/category/CategoryController';
 
 import UserService from './api/user/UserService';
 import AuthService from './api/auth/AuthService';
-import ProductService from './api/product/ProductService';
 import CategoryService from './api/category/CategoryService';
 
 common.devLogger('STARTING SERVER...\n');
@@ -31,14 +29,12 @@ app.use(morgan('tiny'));
 const createServices = (models) => ({
   userService: new UserService(models),
   authService: new AuthService(models),
-  productService: new ProductService(models),
   categoryService: new CategoryService(models)
 });
 
 const createControllers = () => [
   new UserController(app),
   new AuthController(app),
-  new ProductController(app),
   new CategoryController(app)
 ];
 
