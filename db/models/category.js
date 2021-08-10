@@ -40,9 +40,6 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Category',
     tableName: 'category'
   });
-  Category.associate = function(models) {
-    Category.hasMany(models.Product)
-  };
 
   Category.findCategoryByAbbreviation = function(abbreviation) {
     return Category.findOne({

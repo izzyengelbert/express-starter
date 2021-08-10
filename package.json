@@ -9,8 +9,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "start": "babel-node index.js",
-    "start:watch:prod": "ENV=production nodemon --exec babel-node index.js",
-    "start:watch:dev": "ENV=development nodemon --exec babel-node index.js",
+    "start:prod": "ENV=production nodemon --exec babel-node index.js",
+    "start:dev": "ENV=development nodemon --exec babel-node index.js",
     "start:watch": "nodemon --exec babel-node index.js"
   },
   "keywords": [
