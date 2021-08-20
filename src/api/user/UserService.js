@@ -41,6 +41,6 @@ export default class UserService {
     if (!user) {
       throw new UserNotFoundError();
     }
-    return user;
+    return { success: true, user };
   }
 }
