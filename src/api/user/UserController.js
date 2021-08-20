@@ -35,7 +35,7 @@ export default class UserController {
   async _getUserById(req, res) {
     const user = await this._service.getUserById(req.params.id);
 
-    const response = { status: HttpStatus.CREATED, message: HttpStatus.CREATED, user };
+    const response = { status: HttpStatus.CREATED, user };
     return res.status(HttpStatus.OK).json(response);
   }
 
