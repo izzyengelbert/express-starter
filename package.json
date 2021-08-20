@@ -1,6 +1,6 @@
 {
   "name": "express-sequelize-boilerplate",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "a boilerplate for express project using sequelize",
   "main": "index.js",
   "scripts": {
